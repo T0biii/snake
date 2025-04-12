@@ -1,3 +1,21 @@
+:root {
+    --bg-color: #f0f0f0;
+    --text-color: #333;
+    --container-bg: white;
+    --border-color: #333;
+    --button-bg: #4CAF50;
+    --button-hover: #45a049;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #fff;
+    --container-bg: #2d2d2d;
+    --border-color: #666;
+    --button-bg: #45a049;
+    --button-hover: #4CAF50;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,31 +28,54 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .game-container {
     text-align: center;
-    background-color: white;
+    background-color: var(--container-bg);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    color: #333;
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 1rem;
 }
 
+h1, h2 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.settings {
+    margin-bottom: 1rem;
+}
+
+select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
 #gameCanvas {
-    border: 2px solid #333;
-    background-color: #fff;
+    border: 2px solid var(--border-color);
+    background-color: var(--container-bg);
 }
 
 .score {
     font-size: 1.5rem;
     margin: 1rem 0;
-    color: #333;
+    color: var(--text-color);
 }
 
 .controls {
@@ -44,7 +85,7 @@ h1 {
 button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    background-color: #4CAF50;
+    background-color: var(--button-bg);
     color: white;
     border: none;
     border-radius: 5px;
@@ -53,5 +94,41 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: var(--button-hover);
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.icon-button:hover {
+    background: none;
+    transform: scale(1.1);
+}
+
+.leaderboard {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+#leaderboardList {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
 } 
