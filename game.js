@@ -19,11 +19,27 @@ class Snake {
         this.difficultySelect = document.getElementById('difficultySelect');
         this.leaderboardList = document.getElementById('leaderboardList');
         
+        // Modal Elements
+        this.nameModal = document.getElementById('nameModal');
+        this.finalScoreElement = document.getElementById('finalScore');
+        this.playerNameInput = document.getElementById('playerName');
+        this.saveScoreBtn = document.getElementById('saveScoreBtn');
+        this.skipScoreBtn = document.getElementById('skipScoreBtn');
+        
         // Event Listeners
         this.startButton.addEventListener('click', () => this.startGame());
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
         this.darkModeToggle.addEventListener('click', () => this.toggleDarkMode());
         this.difficultySelect.addEventListener('change', (e) => this.setDifficulty(e.target.value));
+        
+        // Modal Event Listeners
+        this.saveScoreBtn.addEventListener('click', () => this.saveScore());
+        this.skipScoreBtn.addEventListener('click', () => this.closeModal());
+        this.playerNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.saveScore();
+            }
+        });
 
         // Initialize
         this.loadDarkMode();
@@ -85,8 +101,19 @@ class Snake {
         });
     }
 
-    addToLeaderboard() {
-        const name = prompt('Gratulation! Bitte geben Sie Ihren Namen ein:');
+    showNameModal() {
+        this.finalScoreElement.textContent = this.score;
+        this.playerNameInput.value = '';
+        this.playerNameInput.focus();
+        this.nameModal.classList.add('show');
+    }
+
+    closeModal() {
+        this.nameModal.classList.remove('show');
+    }
+
+    saveScore() {
+        const name = this.playerNameInput.value.trim();
         if (name) {
             this.leaderboard.push({
                 name: name,
@@ -98,6 +125,7 @@ class Snake {
             this.saveLeaderboard();
             this.updateLeaderboardDisplay();
         }
+        this.closeModal();
     }
 
     generateFood() {
@@ -209,7 +237,7 @@ class Snake {
         clearInterval(this.gameLoop);
         this.startButton.textContent = 'Neu starten';
         this.startButton.disabled = false;
-        this.addToLeaderboard();
+        this.showNameModal();
     }
 
     startGame() {
